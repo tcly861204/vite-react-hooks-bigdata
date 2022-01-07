@@ -1,0 +1,136 @@
+$borderColor: #e2e8f5;
+$className: cui-bigdata-container;
+.#{$className} {
+  position: relative;
+  width: 100%;
+  min-height: 150px;
+  color: #909399;
+  box-sizing: border-box;
+  border-top: 1px solid $borderColor;
+  border-right: 1px solid $borderColor;
+  div, li {
+    padding: 0;
+    margin: 0;
+  }
+  .line-clamp {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  &-header {
+    position: relative;
+    height: 36px;
+    user-select: none;
+    border-bottom: 1px solid $borderColor;
+    overflow: hidden;
+    .#{$className}_left, .#{$className}_right, .#{$className}_content{
+      background: #f5f7fa;
+    }
+  }
+  &-body {
+    position: relative;
+    overflow: auto;
+    min-height: 120px;
+    border-bottom: 1px solid $borderColor;
+    .#{$className}_left, .#{$className}_right, .#{$className}_content{
+      background: #fff;
+    }
+    &::-webkit-scrollbar {
+      width: 10px;
+      height: .5rem;
+      background: hsla(0, 0%, 100%, 0.6);
+    }
+    &::-webkit-scrollbar-track {
+      border-radius: 0;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: rgba(95, 95, 95, .4);
+      transition: all .2s;
+      border-radius: .5rem;
+      &:hover {
+        background-color: rgba(95, 95, 95, .7);
+      }
+    }
+  }
+  &-empty {
+    border-left: 1px solid $borderColor;
+  }
+  .resize-line {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 7px;
+    left: 0;
+    z-index: 3;
+    cursor: col-resize;
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 3px;
+      bottom: 0;
+      width: 1px;
+      background: $borderColor;
+    }
+  }
+  &-row {
+    display: flex;
+    &:not(:last-child) {
+      border-bottom: 1px solid $borderColor;
+    }
+  }
+  li {
+    list-style-type: none;
+    height: 35px;
+    line-height: 35px;
+    font-size: 13px;
+    border-left: 1px solid $borderColor;
+  }
+  .cell {
+    padding: 0 8px;
+    box-sizing: border-box;
+  }
+  .align-left {
+    text-align: left;
+  }
+  .align-right {
+    text-align: right;
+  }
+  .align-center {
+    text-align: center;
+  }
+  .table-header {
+    height: 35px;
+    line-height: 35px;
+    display: flex;
+    font-size: 13px;
+  }
+  .table-body {
+    position: relative;
+    background: #fff;
+    width: 100%;
+    .#{$className}-row {
+      width: 100%;
+      display: flex;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+  &_left, &_right, &_content{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    z-index: 0;
+  }
+  &_left {
+    left: 0;
+    z-index: 1;
+    box-shadow: 5px 0 7px 0 rgba(0, 0, 0, 0.05);
+  }
+  &_right {
+    right: 0;
+    z-index: 2;
+    box-shadow: -5px 0 7px 0 rgba(0, 0, 0, 0.05);
+  }
+}
