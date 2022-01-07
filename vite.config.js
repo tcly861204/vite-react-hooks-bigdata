@@ -6,6 +6,7 @@ import vitePluginImp from 'vite-plugin-imp'
 import visualizer from 'rollup-plugin-visualizer'
 import htmlMinifier from './plugin/html-minifier'
 import banner from './plugin/banner'
+import copy from './plugin/copy'
 const env = process.argv[process.argv.length - 1]
 const isProd = env === 'production'
 // https://vitejs.dev/config/
@@ -47,6 +48,8 @@ export default defineConfig({
   },
   plugins: [
     reactRefresh(),
+    // 复制文件
+    copy(),
     // 压缩编译后的html
     htmlMinifier(),
     // 给打包的代码加上信息
