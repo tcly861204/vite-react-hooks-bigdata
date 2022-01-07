@@ -2,6 +2,7 @@ import path from 'path'
 import { defineConfig } from 'vite'
 import reactRefresh from '@vitejs/plugin-react-refresh'
 import viteCompression from 'vite-plugin-compression'
+import vitePluginImp from 'vite-plugin-imp'
 import visualizer from 'rollup-plugin-visualizer'
 import htmlMinifier from './plugin/html-minifier'
 import banner from './plugin/banner'
@@ -55,6 +56,14 @@ export default defineConfig({
   date: ${new Date().toLocaleString()}
   gitee: https://gitee.com/tcly861204/vite-react-cnode
 `),
+    vitePluginImp({
+      libList: [
+        {
+          libName: 'antd',
+          style: (name) => `antd/es/${name}/style`,
+        },
+      ],
+    }),
     isProd &&
       viteCompression({
         // 压缩

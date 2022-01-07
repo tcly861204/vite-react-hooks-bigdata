@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import BigData from './bigData/index'
+import { Spin } from 'antd'
 class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      loading: false,
       columns: [
         {
           type: 'selection',
@@ -82,11 +84,15 @@ class App extends Component {
   }
 
   componentDidMount() {
+    this.setState({
+      loading: true,
+    })
     fetch(`${import.meta.env.VITE_PUBLIC_PATH}public/data.json`)
       .then((response) => response.json())
       .then((res) => {
         if (res.msg === 'OK') {
           this.setState({
+            loading: false,
             data: res.data.list,
           })
         }
@@ -94,31 +100,33 @@ class App extends Component {
   }
 
   render() {
-    const { columns, data } = this.state
+    const { loading, columns, data } = this.state
     return (
       <section
         style={{
           padding: '50px',
         }}
       >
-        <BigData
-          columns={columns}
-          data={data}
-          deleteCallback={(index) => {
-            data.splice(index, 1)
-            this.setState({
-              data: data,
-            })
-          }}
-          handleSelected={(target) => {
-            this.setState({
-              data: data.map((item) => {
-                item._checked = target
-                return item
-              }),
-            })
-          }}
-        />
+        <Spin spinning={loading}>
+          <BigData
+            columns={columns}
+            data={data}
+            deleteCallback={(index) => {
+              data.splice(index, 1)
+              this.setState({
+                data: data,
+              })
+            }}
+            handleSelected={(target) => {
+              this.setState({
+                data: data.map((item) => {
+                  item._checked = target
+                  return item
+                }),
+              })
+            }}
+          />
+        </Spin>
       </section>
     )
   }

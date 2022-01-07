@@ -1,6 +1,7 @@
 # react-hoos-bigdata
 
 vite+react+hooks 实现 10 万级数据表格渲染
+之前使用 vue 实现了一版，这次利用 react 实现
 
 ## 下载
 

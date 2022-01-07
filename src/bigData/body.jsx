@@ -58,9 +58,9 @@ function Body(props) {
                 style={
                   item.width
                     ? {
-                        width: `${item.width - 1}px`,
-                        maxWidth: `${item.width - 1}px`,
-                        minWidth: `${item.width - 1}px`,
+                        width: `${item.width}px`,
+                        maxWidth: `${item.width}px`,
+                        minWidth: `${item.width}px`,
                       }
                     : {
                         display: 1,
