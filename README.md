@@ -19,6 +19,6 @@ vite+react+hooks 实现 10 万级数据表格渲染
 
 > npm run build
 
-## 预览 http://localhost:8080/
+[点击预览](https://tcly861204.github.io/vite-react-hooks-bigdata/)
 
 ![avatar](./doc/bigdata.png)
