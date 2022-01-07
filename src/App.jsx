@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import BigData from './bigData/index'
-import dataList from './data.json'
 class App extends Component {
   constructor(props) {
     super(props)
@@ -83,9 +82,15 @@ class App extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      data: dataList.data.list,
-    })
+    fetch(`${import.meta.env.VITE_PUBLIC_PATH}public/data.json`)
+      .then((response) => response.json())
+      .then((res) => {
+        if (res.msg === 'OK') {
+          this.setState({
+            data: res.data.list,
+          })
+        }
+      })
   }
 
   render() {

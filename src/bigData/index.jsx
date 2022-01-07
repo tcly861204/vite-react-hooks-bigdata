@@ -15,6 +15,7 @@ const BigData = (props) => {
   const [contentColumns, setContentColumns] = useState([])
   const [rowHeight] = useState(props.rowHeight || 36)
   const [maxRow] = useState(props.maxRow || 15)
+  const [isScroll, setIsScroll] = useState(false)
   useEffect(() => {
     setLeftColumns(columns.filter((item) => item.fixed === 'left'))
     setRightColumns(columns.filter((item) => item.fixed === 'right'))
@@ -31,7 +32,10 @@ const BigData = (props) => {
         clearTimeout(timer)
       }
     }, 30)
-  }, [bodyNode])
+  }, [data, bodyNode])
+  useEffect(() => {
+    setIsScroll(data.length > maxRow)
+  }, [data, maxRow])
   const handleResizeColumn = useCallback(
     function (field, width) {
       if (!field) {
@@ -63,7 +67,6 @@ const BigData = (props) => {
   )
   const controllerHeight =
     ((data.length > maxRow ? maxRow : data.length) + 1) * rowHeight
-  const isScroll = data.length > maxRow
   const handleScroll = function (e) {
     const top = e.currentTarget.scrollTop
     const left = e.currentTarget.scrollLeft
