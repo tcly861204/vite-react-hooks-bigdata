@@ -18,7 +18,7 @@ class App extends Component {
           fixed: 'left',
           headerAlign: 'center',
           align: 'center',
-          width: 50,
+          width: 60,
         },
         {
           label: '标题',
