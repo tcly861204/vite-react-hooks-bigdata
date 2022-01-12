@@ -37,7 +37,7 @@ function Body(props) {
       }
     }
   }
-  const renderColumns = function () {
+  const renderRows = function () {
     const rows = []
     let maxLen = 0
     const className = 'cui-bigdata-container'
@@ -86,7 +86,7 @@ function Body(props) {
   }
   return (
     <div className="table-body" style={{ height: `${len * 36}px` }}>
-      {renderColumns()}
+      {renderRows()}
     </div>
   )
 }
