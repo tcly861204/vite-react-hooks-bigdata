@@ -24,7 +24,7 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3 # 使用部署到 GitHub pages 的 action
         with:
           publish_dir: ./dist # 部署打包后的 dist 目录
-          github_token: ${{ secrets.VUE3_DEPLOY }} # secret 名
+          github_token: ${{ secrets.VITE_REACT_BIGDATA_DEPLOY }} # secret 名
           user_name: ${{ secrets.MY_USER_NAME }}
           user_email: ${{ secrets.MY_USER_EMAIL }}
           commit_message: action push # 部署时的 git 提交信息，自由填写
