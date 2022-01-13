@@ -27,4 +27,4 @@ jobs:
           github_token: ${{ secrets.VITE_REACT_BIGDATA_DEPLOY }} # secret 名
           user_name: ${{ secrets.MY_USER_NAME }}
           user_email: ${{ secrets.MY_USER_EMAIL }}
-          commit_message: action push # 部署时的 git 提交信息，自由填写
+          commit_message: feat: view react bigdata # 部署时的 git 提交信息，自由填写

@@ -53,7 +53,7 @@ export default defineConfig({
       patterns: [
         {
           from: './public',
-          to: './dist/public',
+          to: './dist',
         },
       ],
     }),
