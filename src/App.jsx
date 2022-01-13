@@ -95,7 +95,7 @@ class App extends Component {
     this.setState({
       loading: true,
     })
-    fetch(`${import.meta.env.VITE_PUBLIC_PATH}public/data.json`)
+    fetch(`./public/data.json`)
       .then((response) => response.json())
       .then((res) => {
         if (res.msg === 'OK') {
