@@ -6,7 +6,7 @@
   @Last Modified time: 2022/1/7 下午12:00:45
   @Github: https://tcly861204.github.io
 */
-import React from 'react'
+import React, { useCallback } from 'react'
 import PropTypes from 'prop-types'
 import Checkbox from './checkbox'
 function Body(props) {
@@ -37,53 +37,56 @@ function Body(props) {
       }
     }
   }
-  const renderRows = function () {
-    const rows = []
-    let maxLen = 0
-    const className = 'cui-bigdata-container'
-    const dataLen = data.length
-    if (dataLen > maxRow) {
-      if (scrollTop < dataLen - maxRow - 4) {
-        maxLen = scrollTop + maxRow + 3
+  const renderRows = useCallback(
+    function () {
+      const rows = []
+      let maxLen = 0
+      const className = 'cui-bigdata-container'
+      const dataLen = data.length
+      if (dataLen > maxRow) {
+        if (scrollTop < dataLen - maxRow - 4) {
+          maxLen = scrollTop + maxRow + 3
+        } else {
+          maxLen = dataLen
+        }
       } else {
-        maxLen = dataLen
+        maxLen = data.length
       }
-    } else {
-      maxLen = data.length
-    }
-    for (let row = scrollTop; row < maxLen; row++) {
-      rows.push(
-        <div
-          key={row}
-          className={`${className}-row`}
-          style={{ transform: `translateY(${row * 36}px)` }}
-        >
-          {columns.map((item, col) => {
-            return (
-              <li
-                key={col}
-                className={`align-${item.align || 'left'}`}
-                style={
-                  item.width
-                    ? {
-                        width: `${item.width}px`,
-                        maxWidth: `${item.width}px`,
-                        minWidth: `${item.width}px`,
-                      }
-                    : {
-                        display: 1,
-                      }
-                }
-              >
-                {renderCell(item, row)}
-              </li>
-            )
-          })}
-        </div>
-      )
-    }
-    return rows
-  }
+      for (let row = scrollTop; row < maxLen; row++) {
+        rows.push(
+          <div
+            key={row}
+            className={`${className}-row`}
+            style={{ transform: `translateY(${row * 36}px)` }}
+          >
+            {columns.map((item, col) => {
+              return (
+                <li
+                  key={col}
+                  className={`align-${item.align || 'left'}`}
+                  style={
+                    item.width
+                      ? {
+                          width: `${item.width}px`,
+                          maxWidth: `${item.width}px`,
+                          minWidth: `${item.width}px`,
+                        }
+                      : {
+                          display: 1,
+                        }
+                  }
+                >
+                  {renderCell(item, row)}
+                </li>
+              )
+            })}
+          </div>
+        )
+      }
+      return rows
+    },
+    [scrollTop, data]
+  )
   return (
     <div className="table-body" style={{ height: `${len * 36}px` }}>
       {renderRows()}

@@ -10,6 +10,7 @@ import React, { useState, useRef, useEffect, useMemo, useCallback } from 'react'
 import Header from './header'
 import Body from './body'
 import PropTypes from 'prop-types'
+import useColumns from '@/hooks/columns'
 import './style.scss'
 const BigData = (props) => {
   const { data, handleSelected } = props
@@ -18,19 +19,11 @@ const BigData = (props) => {
   const [scrollWidth, setScrollWidth] = useState(8)
   const [scrollTop, setScrollTop] = useState(0)
   const [scrollLeft, setScrollLeft] = useState(0)
-  const [leftColumns, setLeftColumns] = useState([])
-  const [rightColumns, setRightColumns] = useState([])
-  const [contentColumns, setContentColumns] = useState([])
   const [rowHeight] = useState(props.rowHeight || 36)
   const [maxRow] = useState(props.maxRow || 15)
   const [isScroll, setIsScroll] = useState(false)
-  useEffect(() => {
-    setLeftColumns(columns.filter((item) => item.fixed === 'left'))
-    setRightColumns(columns.filter((item) => item.fixed === 'right'))
-    setContentColumns(
-      columns.filter((item) => !['left', 'right'].includes(item.fixed))
-    )
-  }, [columns])
+  const [leftColumns, contentColumns, rightColumns, leftWidth, rightWidth] =
+    useColumns(columns)
   useEffect(() => {
     const timer = setTimeout(() => {
       const width = bodyNode.current.clientWidth
@@ -59,22 +52,9 @@ const BigData = (props) => {
     [columns]
   )
   const containerName = 'cui-bigdata-container'
-  const leftWidth = useMemo(
-    () =>
-      leftColumns.reduce((acc, item) => {
-        return acc + (item.width || 100)
-      }, 0),
-    [leftColumns]
-  )
-  const rightWidth = useMemo(
-    () =>
-      rightColumns.reduce((acc, item) => {
-        return acc + (item.width || 100)
-      }, 0),
-    [rightColumns]
-  )
-  const controllerHeight =
-    ((data.length > maxRow ? maxRow : data.length) + 1) * rowHeight
+  const controllerHeight = useMemo(() => {
+    return ((data.length > maxRow ? maxRow : data.length) + 1) * rowHeight
+  }, [data, maxRow, rowHeight])
   const handleScroll = function (e) {
     const top = e.currentTarget.scrollTop
     const left = e.currentTarget.scrollLeft
@@ -85,7 +65,9 @@ const BigData = (props) => {
       setScrollLeft(left)
     }
   }
-  const scrollHeight = data.length * rowHeight
+  const scrollHeight = useMemo(() => {
+    return data.length * rowHeight
+  }, [data, rowHeight])
   return (
     <section
       className={containerName}
