@@ -29,10 +29,10 @@ const BigData = (props) => {
       const width = bodyNode.current.clientWidth
       const pwidth = bodyNode.current.parentNode.clientWidth
       setScrollWidth(pwidth - width)
-      return () => {
-        clearTimeout(timer)
-      }
     }, 30)
+    return () => {
+      clearTimeout(timer)
+    }
   }, [data, bodyNode])
   useEffect(() => {
     setIsScroll(data.length > maxRow)
