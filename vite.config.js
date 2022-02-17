@@ -4,9 +4,10 @@ import reactRefresh from '@vitejs/plugin-react-refresh'
 import viteCompression from 'vite-plugin-compression'
 import vitePluginImp from 'vite-plugin-imp'
 import visualizer from 'rollup-plugin-visualizer'
-import htmlMinifier from './plugin/html-minifier'
+import htmlMinifier from 'vite-plugin-html-minifier-terser'
 import banner from './plugin/banner'
 import copyPlugin from 'vite-plugin-files-copy'
+// @ts-ignore
 const env = process.argv[process.argv.length - 1]
 const isProd = env === 'production'
 // https://vitejs.dev/config/
@@ -49,6 +50,7 @@ export default defineConfig({
   plugins: [
     reactRefresh(),
     // 复制文件
+    // @ts-ignore
     copyPlugin({
       patterns: [
         {
@@ -58,13 +60,15 @@ export default defineConfig({
       ],
     }),
     // 压缩编译后的html
+    // @ts-ignore
     htmlMinifier(),
     // 给打包的代码加上信息
+    // @ts-ignore
     banner(`
   author: tcly861204
   email: tcly861204@hotmail.com
   date: ${new Date().toLocaleString()}
-  gitee: https://gitee.com/tcly861204/vite-react-cnode
+  github: https://github.com/tcly861204/vite-react-hooks-bigdata
 `),
     vitePluginImp({
       libList: [
