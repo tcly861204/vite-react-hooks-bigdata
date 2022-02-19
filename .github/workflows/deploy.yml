@@ -31,9 +31,20 @@ jobs:
         run: cp README.md dist
 
       - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3 # 使用部署到 GitHub pages 的 action
-        with:
-          publish_dir: ./dist # 部署打包后的 dist 目录
-          github_token: ${{ secrets.VITE_REACT_BIGDATA_DEPLOY }} # secret 名
-          publish_branch: gh-pages
-          full_commit_message: 'feat: view react bigdata' # 部署时的 git 提交信息，自由填写
+        env:
+          # Github 仓库
+          GITHUB_REPO: github.com/tcly861204/vite-react-hooks-bigdata.git
+        run: |
+          cd ./dist && git init && git add .
+          git config user.name "tcly861204"
+          git config user.email "356671808@qq.com"
+          git add .
+          git commit -m "GitHub Actions Auto Builder at $(date +'%Y-%m-%d %H:%M:%S')"
+          git push --force --quiet "https://${{ secrets.VITE_REACT_BIGDATA_DEPLOY }}@$GITHUB_REPO" master:gh-pages
+
+        # uses: peaceiris/actions-gh-pages@v3 # 使用部署到 GitHub pages 的 action
+        # with:
+        #   publish_dir: ./dist # 部署打包后的 dist 目录
+        #   github_token: ${{ secrets.VITE_REACT_BIGDATA_DEPLOY }} # secret 名
+        #   publish_branch: gh-pages
+        #   full_commit_message: 'feat: view react bigdata' # 部署时的 git 提交信息，自由填写
