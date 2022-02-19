@@ -7,6 +7,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
       - uses: actions/checkout@v2
 
       - name: Setup Node.js v15.x
@@ -14,13 +15,19 @@ jobs:
         with:
           node-version: '15.x'
 
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
       - name: Install
         run: npm install # 安装依赖
 
       - name: Build
         run: npm run build # 打包
 
-      - name: move
+      - name: Copy
         run: cp README.md dist
 
       - name: Deploy
@@ -29,4 +36,4 @@ jobs:
           publish_dir: ./dist # 部署打包后的 dist 目录
           github_token: ${{ secrets.VITE_REACT_BIGDATA_DEPLOY }} # secret 名
           publish_branch: gh-pages
-          commit_message: 'feat: view react bigdata' # 部署时的 git 提交信息，自由填写
+          full_commit_message: 'feat: view react bigdata' # 部署时的 git 提交信息，自由填写
