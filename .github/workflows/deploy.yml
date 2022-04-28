@@ -10,10 +10,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Setup Node.js v15.x
+      - name: Setup Node.js v16.x
         uses: actions/setup-node@v1
         with:
-          node-version: '15.x'
+          node-version: '16.x'
 
       - name: Cache node modules
         uses: actions/cache@v1
