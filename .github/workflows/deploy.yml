@@ -39,9 +39,4 @@ jobs:
           FOLDER: ./dist
       
       - name: Preview
-        uses: JamesIves/github-pages-deploy-action@releases/v3
-        with:
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          REPOSITORY_NAME: git@github.com:tcly861204/preview.git
-          BRANCH: main
-          FOLDER: ./dist
+        run: cd dist && git remote add preview https://github.com/tcly861204/preview.git && git push preview main
